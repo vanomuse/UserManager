@@ -3,6 +3,7 @@ package net.vanomuse.usermanager.controller;
 import net.vanomuse.usermanager.model.User;
 import net.vanomuse.usermanager.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -10,13 +11,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.text.AttributedString;
+
 @Controller
 public class UserController {
     private UserService userService;
 
     @Autowired(required = true)
     @Qualifier(value = "userService")
-    public void setUserkService(UserService userService) {
+    public void setUserService(UserService userService) {
         this.userService = userService;
     }
 
@@ -28,7 +31,7 @@ public class UserController {
         return "users";
     }
     @RequestMapping(value = "/users/add", method = RequestMethod.POST)
-    public String addUser(@ModelAttribute("user")User user){
+    public String addUser(@ModelAttribute("user") User user){
         if(user.getId()==0){
             this.userService.addUser(user);
         }else {
@@ -43,16 +46,15 @@ public class UserController {
         return "redirect:/users";
     }
     @RequestMapping("edit/{id}")
-    public String editUser(@PathVariable("id") int id) {
+    public String editUser(@PathVariable("id") int id, Model model) {
         model.addAttribute("user", this.userService.getUserById(id));
-        model.addAttribute("ListUsers", this.userService.listUsers());
+        model.addAttribute("listUsers", this.userService.listUsers());
 
         return "users";
     }
     @RequestMapping("userdata/{id}")
     public String userData(@PathVariable("id") int id, Model model){
         model.addAttribute("user", this.userService.getUserById(id));
-
         return "userdata";
     }
 }
