@@ -1,7 +1,7 @@
 package net.vanomuse.usermanager.service;
 
 import net.vanomuse.usermanager.model.User;
-import java.util.list;
+import java.util.List;
 
 
 public interface UserService {
@@ -13,6 +13,6 @@ public interface UserService {
 
     public User getUserById(int id);
 
-    public List<User> listUsers();
+    public Object listUsers();
 }
 
