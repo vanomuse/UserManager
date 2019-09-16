@@ -1,7 +1,8 @@
 package net.vanomuse.usermanager.service;
 
+
 import net.vanomuse.usermanager.dao.UserDao;
-import org.hibernate.Session;
+import net.vanomuse.usermanager.model.User;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,13 +25,13 @@ public class UserServiceImpl implements UserService{
     @Override
     @Transactional
     public void updateUser(User user) {
-        this.updateDao.addUser(user);
+        this.userDao.updateUser(user);
     }
 
     @Override
     @Transactional
     public void removeUser(int id) {
-        this.removeDao.addUser(id);
+        this.userDao.removeUser(id);
     }
 
     @Override
@@ -41,7 +42,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     @Transactional
-    public List<User> listUser() {
+    public List<User> listUsers() {
         return this.userDao.listUsers();
     }
 }
