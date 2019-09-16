@@ -1,6 +1,6 @@
-package net.proselyte.usermanager.dao;
+package net.vanomuse.usermanager.dao;
 
-import net.proselyte.usermanager.model.User;
+import net.vanomuse.usermanager.model.User;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.slf4j.Logger;
@@ -33,6 +33,7 @@ public class UserDaoImpl implements UserDao {
         logger.info("User successfully update. User details: " + user);
     }
 
+
     @Override
     public void removeUser(int id) {
         Session session = this.sessionFactory.getCurrentSession();
@@ -46,16 +47,17 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public User getUserById(int id) {
-        Session session =this.sessionFactory.getCurrentSession();
-        User User = (User) session.load(User.class, new Integer(id));
+        Session session = this.sessionFactory.getCurrentSession();
+        User user = (User) session.load(User.class, new Integer(id));
         logger.info("User successfully loaded. User details: " + user);
 
         return user;
     }
 
+
     @Override
     @SuppressWarnings("unchecked")
-    public List<User> listUser() {
+    public List<User> listUsers() {
         Session session = this.sessionFactory.getCurrentSession();
         List<User> userList = session.createQuery("from User").list();
 
